@@ -70,18 +70,6 @@ def main():
     df_daily = show_class_daily_performance(limit=10)
     print(df_daily.to_string(index=False))
 
-    # Student Performance Summary
-    print("\n\n[2] STUDENT PERFORMANCE SUMMARY (Sample)")
-    print("-" * 60)
-    df_student = show_student_performance_summary(limit=10)
-    print(df_student.to_string(index=False))
-
-    # Class Statistics
-    print("\n\n[3] CLASS STATISTICS (Aggregated)")
-    print("-" * 60)
-    df_stats = show_class_statistics()
-    print(df_stats.to_string(index=False))
-
     print("\n" + "=" * 60)
     print("End of Report")
     print("=" * 60)
