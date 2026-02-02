@@ -14,13 +14,15 @@ ENV PYTHONPATH=/app
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
+    g++ \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first (for better caching)
-COPY requirements.txt .
+# Copy pre-downloaded wheels (workaround for Docker DNS issues)
+COPY wheels/ /tmp/wheels/
 
-# Install Python dependencies (without Airflow for lightweight image)
-RUN pip install --no-cache-dir pandas duckdb python-dateutil pytest
+# Install Python dependencies from local wheels
+RUN pip install --no-cache-dir --no-index --find-links=/tmp/wheels/ pandas duckdb python-dateutil pytest \
+    && rm -rf /tmp/wheels/
 
 # Copy source code
 COPY src/ src/

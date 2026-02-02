@@ -13,12 +13,17 @@ x-airflow-common: &airflow-common
     - AIRFLOW__CORE__LOAD_EXAMPLES=false
     - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=true
     - PYTHONPATH=/opt/airflow
-    - _PIP_ADDITIONAL_REQUIREMENTS=pandas duckdb python-dateutil
+    - _PIP_ADDITIONAL_REQUIREMENTS=pandas duckdb python-dateutil dbt-core dbt-duckdb
+    # dbt configuration
+    - DBT_PROJECT_DIR=/opt/airflow/dbt/student-analytics-dbt
+    - DUCKDB_PATH=/opt/airflow/data/warehouse.duckdb
   volumes:
     - ../dags:/opt/airflow/dags
     - ../src:/opt/airflow/src
     - ../data:/opt/airflow/data
     - ./logs:/opt/airflow/logs
+    # Mount dbt project
+    - ../../student-analytics-dbt:/opt/airflow/dbt/student-analytics-dbt
   depends_on:
     - postgres
 
