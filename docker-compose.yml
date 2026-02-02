@@ -1,0 +1,34 @@
+# Student Data Pipeline - Docker Compose
+# Simple deployment for running the pipeline
+
+version: '3.8'
+
+services:
+  pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: student-pipeline
+    volumes:
+      # Mount data directory
+      - ./data:/app/data
+      # Mount source for development
+      - ./src:/app/src:ro
+    environment:
+      - PYTHONPATH=/app
+    command: ["python", "src/main.py", "--data-dir", "/app/data/raw"]
+
+  # Optional: Run query helper
+  query:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: student-pipeline-query
+    volumes:
+      - ./data:/app/data
+      - ./src:/app/src:ro
+    environment:
+      - PYTHONPATH=/app
+    command: ["python", "src/query_results.py"]
+    profiles:
+      - query
