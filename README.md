@@ -411,8 +411,8 @@ python show_analytics.py
 
 This displays:
 - **Class Daily Performance** - Daily attendance rates and average scores per class
-- **Student Performance Summary** - Individual student metrics (attendance, assessment scores)
-- **Class Statistics** - Aggregated statistics per class
+<img width="827" height="245" alt="image" src="https://github.com/user-attachments/assets/9f1d57fe-1d87-4fdb-988c-ab7528ef65a9" />
+
 
 You can also import the functions for custom analysis:
 
