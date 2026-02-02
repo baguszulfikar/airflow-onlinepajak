@@ -9,6 +9,7 @@ An end-to-end data pipeline that ingests raw student data from multiple sources 
 - [Project Structure](#project-structure)
 - [Data Model](#data-model)
 - [How to Run](#how-to-run)
+- [View Analytics](#view-analytics)
 - [Automation](#automation)
 
 ---
@@ -324,6 +325,7 @@ student-data-pipeline/              # This repo - Ingestion
 │   └── raw/                        # Source files location
 ├── docker/
 │   └── docker-compose-airflow.yml  # Airflow deployment
+├── show_analytics.py               # Analytics dashboard script
 ├── Dockerfile
 └── requirements.txt
 
@@ -397,6 +399,35 @@ cp /path/to/data/*.json data/raw/
 
 # Run ingestion
 python src/main.py
+```
+
+### View Analytics
+
+After running the pipeline, you can view the analytics tables using the `show_analytics.py` script:
+
+```bash
+python show_analytics.py
+```
+
+This displays:
+- **Class Daily Performance** - Daily attendance rates and average scores per class
+- **Student Performance Summary** - Individual student metrics (attendance, assessment scores)
+- **Class Statistics** - Aggregated statistics per class
+
+You can also import the functions for custom analysis:
+
+```python
+from show_analytics import (
+    show_class_daily_performance,
+    show_student_performance_summary,
+    show_class_statistics
+)
+
+# Get data as DataFrame
+df = show_class_daily_performance(limit=100)
+
+# Filter or analyze further
+df[df['class_id'] == 'CLASS-01']
 ```
 
 ---
